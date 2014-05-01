@@ -1,0 +1,50 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
+{% load staticfiles %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<div class="row" style="margin-left: 5%; margin-right: 5%;">
+
+  <!-- Default panel contents -->
+  <div style="font-family:Trajan_Pro; font-size: 24px;" class="panel-heading">
+    <center>Alumni Roster</center>
+    {% if request.user.is_superuser %}
+    <div class="row">
+      <div class="pull-right" style="margin-right: 10px;">
+	<a href="{% url 'admin:auth_user_add' %}">
+	  <font style="font-size: 12px; padding-bottom: 10px;">
+	    <span class="glyphicon glyphicon-plus"></span>
+	    Add New Users
+	  </font>
+	</a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Table -->
+
+  <table class="table">
+    <thead><bold>
+      <tr>
+	<th>Name</th>
+	<th>Year</th>
+      </tr>
+    </thead>
+    {% for user in users_list %}
+    <tr>
+      <td>{{ user.first_name }} {{ user.last_name }}</td>
+      <td>{{ user.email }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+{% endblock %}

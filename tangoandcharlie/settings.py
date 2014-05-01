@@ -36,6 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap3',
+    'cobra_directory',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -54,13 +56,8 @@ WSGI_APPLICATION = 'tangoandcharlie.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+import dj_database_url
+DATABASES = {'default': dj_database_url.config(default='postgres://hbmgegljfsnkbu:d5Zwh9xUzkccaL2eFqTUV28MxX@ec2-54-235-99-46.compute-1.amazonaws.com:5432/ddae7p5t44ho6r')}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -81,8 +78,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -91,11 +87,13 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
 
 # Static asset configuration
-import os
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+
+AUTH_PROFILE_MODEL = 'cobra_directory.UserProfile'
