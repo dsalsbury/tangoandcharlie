@@ -10,15 +10,26 @@ from cobra_directory.models import UserProfile
 def roster(request):
     users = User.objects.all()
     users_list = []
+    names_list = []
     for u in users:
         profile = None
         try:
             profile = u.get_profile()
+            if profile.first_name == 'NA':
+                name = u.username
+                profile.first_name = name.split('.')[0]
+                profile.last_name = name.split('.')[1]
+                profile.year = "20" + u.username.split('.')[2]
+                profile.save()
+#            name = u.username.split('.')
+#            names_list.append(name[0])
+                
         except UserProfile.DoesNotExist:
             profile = UserProfile.objects.create(user=u)
         users_list.append(profile)
     context = {
         'users_list': users_list,
+        'names_list': names_list,
         }
 
     return render_to_response(
