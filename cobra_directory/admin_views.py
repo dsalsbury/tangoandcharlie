@@ -8,8 +8,15 @@ from django.contrib.auth.models import User
 from cobra_directory.models import UserProfile
 
 def roster(request):
-    users_list = UserProfile.objects.all()
-
+    users = User.objects.all()
+    users_list = []
+    for u in users:
+        profile = None
+        try:
+            profile = u.get_profile()
+        except UserProfile.DoesNotExist:
+            profile = UserProfile.objects.create(user=u)
+        users_list.append(profile)
     context = {
         'users_list': users_list,
         }
