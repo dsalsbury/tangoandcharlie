@@ -9,7 +9,7 @@ from cobra_directory.models import UserProfile
 
 def roster(request):
     users_list = UserProfile.objects.all()
-#    year = request.user.profile.year
+
     context = {
         'users_list': users_list,
         }
@@ -21,3 +21,17 @@ def roster(request):
     )
 
 roster = staff_member_required(roster)
+
+def profile(request, user_id):
+    user = User.objects.get(id=user_id)
+    profile = UserProfile.objects.get(user=user)
+
+    context = { 'profile' : profile }
+
+    return render_to_response(
+        "cobra_directory/profile.html",
+        context,
+        RequestContext(request, {}),
+    )
+
+profile = staff_member_required(profile)

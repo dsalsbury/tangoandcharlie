@@ -1,0 +1,28 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
+{% load staticfiles %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<div class="row" style="margin-left: 5%; margin-right: 5%;">
+
+
+  <!-- Well -->
+  <div class="well">
+    <b>Name: </b>{{ profile.first_name }} {{ profile.last_name }}<br>
+    <b>Year: </b>{{ profile.year }}<br>
+    <b>Email:</b> {{ profile.user.email }}<br>
+    <b>Current Location: </b>{{ profile.current_location }}<br>
+    <b>Current Job: </b>{{ profile.current_job }}<br>
+    <b>Miscellaneous!: </b>{{ profile.miscellaneous }}<br>
+  </div>
+  
+
+</div>
+
+{% endblock %}

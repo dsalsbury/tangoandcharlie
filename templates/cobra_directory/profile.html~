@@ -28,26 +28,11 @@
     {% endif %}
   </div>
 
-  <!-- Table -->
-
-  <table class="table">
-    <thead><bold>
-      <tr>
-	<th>Name</th>
-	<th>Year</th>
-	<th>Email</th>
-      </tr>
-    </thead>
-    {% for user in users_list %}
-    <tr>
-      <td><a href="/profile/{{ user.id }}">
-	  {{ user.first_name }} {{ user.last_name }}
-      </a></td>
-      <td>{{ user.year }}</td>
-      <td>{{ user.user.email }}</td>
-    </tr>
-    {% endfor %}
-  </table>
+  <!-- Well -->
+  <div class="well">
+    <h3>Name: </h3><p>{{ profile.first_name }} {{ profile.last_name }}</p>
+  </div>
+  
 
 </div>
 
