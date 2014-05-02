@@ -1,17 +1,13 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-class UserProfile(models.Model):
-    user = models.ForeignKey(User, unique=True)
-    first_name = models.CharField(max_length=100, blank=True, default="NA")
-    last_name = models.CharField(max_length=100, blank=True, default="NA")
-    current_location = models.CharField(max_length=200, blank=True, default="NA")
-    current_job = models.CharField(max_length=300, blank=True, default="NA")
-    year = models.CharField(max_length=4, blank=True, default="NA")
-    miscellaneous = models.TextField(blank=True, default="NA")
+class UserProfile(AbstractUser):
+    current_location = models.CharField(max_length=200, blank=True, default="??")
+    current_job = models.CharField(max_length=300, blank=True, default="??")
+    year = models.CharField(max_length=4, blank=True, default="0000")
+    major = models.CharField(max_length=300, blank=True, default="??")
     
     def __unicode__(self):
-        return self.user.username
+        return self.current_location
 
-User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u, first_name=u.username.split('.',1), last_name=u.username.split('.',2), year=u.username.split('.',3))[0])

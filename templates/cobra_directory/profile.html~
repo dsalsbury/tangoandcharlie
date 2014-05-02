@@ -11,26 +11,15 @@
 
 <div class="row" style="margin-left: 5%; margin-right: 5%;">
 
-  <!-- Default panel contents -->
-  <div style="font-family:Trajan_Pro; font-size: 24px;" class="panel-heading">
-    <center>Alumni Roster</center>
-    {% if request.user.is_superuser %}
-    <div class="row">
-      <div class="pull-right" style="margin-right: 10px;">
-	<a href="{% url 'admin:auth_user_add' %}">
-	  <font style="font-size: 12px; padding-bottom: 10px;">
-	    <span class="glyphicon glyphicon-plus"></span>
-	    Add New Users
-	  </font>
-	</a>
-      </div>
-    </div>
-    {% endif %}
-  </div>
 
   <!-- Well -->
   <div class="well">
-    <h3>Name: </h3><p>{{ profile.first_name }} {{ profile.last_name }}</p>
+    <b>Name: </b>{{ profile.first_name }} {{ profile.last_name }}<br>
+    <b>Year: </b>{{ profile.year }}<br>
+    <b>Email:</b> {{ profile.user.email }}<br>
+    <b>Current Location: </b>{{ profile.current_location }}<br>
+    <b>Current Job:</b>{{ profile.current_job }}<br>
+    <b>Miscellaneous!: </b>{{ profile.miscellaneous }}<br>
   </div>
   
 

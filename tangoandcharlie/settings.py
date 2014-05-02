@@ -97,4 +97,4 @@ STATICFILES_DIRS = (
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
-AUTH_PROFILE_MODULE = 'cobra_directory.UserProfile'
+AUTH_USER_MODEL = 'cobra_directory.UserProfile'

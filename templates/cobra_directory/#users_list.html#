@@ -39,6 +39,13 @@
       </tr>
     </thead>
     {% for user in users_list %}
+    <tr>
+      <td><a href="/profile/{{ user.id }}">
+	  {{ user.first_name }} {{ user.last_name }}
+      </a></td>
+      <td>{{ user.year }}</td>
+      <td>{{ user.email }}</td>
+    </tr>
     {% endfor %}
   </table>
 
