@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'bootstrap3',
     'cobra_directory',
+    'south',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -96,4 +97,4 @@ STATICFILES_DIRS = (
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
-AUTH_PROFILE_MODEL = 'cobra_directory.UserProfile'
+AUTH_PROFILE_MODULE = 'cobra_directory.UserProfile'

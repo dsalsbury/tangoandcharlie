@@ -9,10 +9,11 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
-<div class="panel panel-default" style="height:70%;">
+<div class="row" style="margin-left: 5%; margin-right: 5%;">
+
   <!-- Default panel contents -->
   <div style="font-family:Trajan_Pro; font-size: 24px;" class="panel-heading">
-    <center>Users</center>
+    <center>Alumni Roster</center>
     {% if request.user.is_superuser %}
     <div class="row">
       <div class="pull-right" style="margin-right: 10px;">
@@ -28,36 +29,22 @@
   </div>
 
   <!-- Table -->
+
   <table class="table">
     <thead><bold>
       <tr>
-	<th>Username</th>
 	<th>Name</th>
-	<th>Email</th>
-	<th>User Type</th>
+	<th>Year</th>
       </tr>
     </thead>
     {% for user in users_list %}
     <tr>
-      <td><bold>
-	  {% if request.user.is_superuser %}
-	  <a href="{% url 'admin:auth_user_change' user.id %}">
-	  {{ user.username }}
-      </a>
-          {% else %}
-	  {{ user.username }}
-	  {% endif %}
-      </bold></td>
       <td>{{ user.first_name }} {{ user.last_name }}</td>
       <td>{{ user.email }}</td>
-      {% if user.is_superuser %}
-      <td>Professor/Administrator</td>
-      {% else %}
-      <td>Student</td>
-      {% endif %}
     </tr>
     {% endfor %}
   </table>
+
 </div>
 
 {% endblock %}

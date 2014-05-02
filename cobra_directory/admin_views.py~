@@ -11,9 +11,9 @@ def roster(request):
     context = {'users_list': users_list,}
 
     return render_to_response(
-        "coins/users_list.html",
+        "cobra_directory/users_list.html",
         context,
         RequestContext(request, {}),
     )
 
-roster = staff_member_required(users_list)
+roster = staff_member_required(roster)

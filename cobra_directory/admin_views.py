@@ -5,10 +5,14 @@ from django.template import RequestContext, loader
 from django.contrib.admin.views.decorators import staff_member_required
 
 from django.contrib.auth.models import User
+from cobra_directory.models import UserProfile
 
 def roster(request):
-    users_list = User.objects.all()
-    context = {'users_list': users_list,}
+    users_list = UserProfile.objects.all()
+#    year = request.user.profile.year
+    context = {
+        'users_list': users_list,
+        }
 
     return render_to_response(
         "cobra_directory/users_list.html",
