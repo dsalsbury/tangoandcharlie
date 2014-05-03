@@ -7,11 +7,16 @@ from cobra_directory.models import UserProfile
 class UserProfileChangeForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = UserProfile
+        fields = ['first_name', 'last_name', 'year']
+    def save(self, commit=True):
+        user = super(UserProfileChangeForm, self).save(commit=False)
 
 class UserProfileAdmin(UserAdmin):
     form = UserProfileChangeForm
 
-    fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('current_location', 'current_job')}),
+    fieldsets = (
+        (None, {
+                'fields': ('username', 'password', 'year', 'major', 'current_location', 'current_job', 'is_staff', 'is_superuser'),
+                'classes': ('wide',)}),
        )
-admin.site.register(UserProfile, UserAdmin)
+admin.site.register(UserProfile, UserProfileAdmin)
