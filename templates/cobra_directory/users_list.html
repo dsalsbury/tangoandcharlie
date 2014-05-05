@@ -40,7 +40,9 @@
     </thead>
     {% for user in users_list %}
       <tr>
-	<td>{{ user.first_name }} {{ user.last_name }}</td>
+	<td><a href="/profile/{{ user.id }}/">
+	    {{ user.firstname }} {{ user.lastname }}
+	</a></td>
 	<td>{{ user.year }}</td>
 	<td>{{ user.email }}</td>
       </tr>
