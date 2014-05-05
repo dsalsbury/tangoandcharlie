@@ -39,7 +39,9 @@ class UserChangeForm(forms.ModelForm):
     the user, but replaces the password field with admin's
     password hash display field.
     """
-    password = ReadOnlyPasswordHashField()
+    password = ReadOnlyPasswordHashField(label= ("Password"), help_text= ("Raw passwords are not stored, so there is no way to see "
+                    "this user's password, but you can change the password "
+                    "using <a href=\"password/\">this form</a>."))
 
     class Meta:
         model = MyUser
@@ -67,7 +69,7 @@ class MyUserAdmin(UserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('username', 'email', 'firstname', 'lastname', 'year', 'is_admin')
+    list_display = ('username', 'email', 'firstname', 'lastname', 'year', 'is_admin', 'password')
     list_filter = ()
 
     fieldsets = (
