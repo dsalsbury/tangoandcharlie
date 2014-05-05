@@ -6,7 +6,7 @@ from django.contrib.auth.models import (
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, username, email, firstname, lastname, year, password=None):
+    def create_user(self, username, firstname, lastname, year, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -16,23 +16,21 @@ class MyUserManager(BaseUserManager):
 
         user = self.model(
             username=username,
-            email=self.normalize_email(email),
             firstname=firstname,
             lastname=lastname,
-            year=year
+            year=year,
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, email, firstname, lastname, year, password):
+    def create_superuser(self, username, firstname, lastname, year, password):
         """
         Creates and saves a superuser with the given email, date of
         birth and password.
         """
         user = self.create_user(username=username,
-            email=email,
             password=password,
             firstname=firstname,
             lastname=lastname,
@@ -47,7 +45,7 @@ class MyUser(AbstractBaseUser):
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
-        unique=True,
+        blank=True,
     )
 
     username = models.CharField(max_length=200, blank=True, unique=True)
@@ -59,11 +57,12 @@ class MyUser(AbstractBaseUser):
     major = models.CharField(max_length=300, blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=True)
 
     objects = MyUserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'firstname', 'lastname', 'year']
+    REQUIRED_FIELDS = ['firstname', 'lastname', 'year']
 
     def get_full_name(self):
         # The user is identified by their email address
@@ -88,10 +87,4 @@ class MyUser(AbstractBaseUser):
         "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
-
-    @property
-    def is_staff(self):
-        "Is the user a member of staff?"
-        # Simplest possible answer: All admins are staff
-        return self.is_admin
 

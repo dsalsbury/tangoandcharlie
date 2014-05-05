@@ -15,7 +15,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-        fields = ('username', 'email', 'firstname', 'lastname', 'year')
+        fields = ('username', 'firstname', 'lastname', 'year')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -51,8 +51,15 @@ class UserChangeForm(forms.ModelForm):
         # field does not have access to the initial value
         return self.initial["password"]
 
-
 class MyUserAdmin(UserAdmin):
+
+    def make_admin(self, request, queryset):
+        queryset.update(is_admin=True)
+    make_admin.short_description = "Make selected users administrators"
+    def un_admin(self, request, queryset):
+        queryset.update(is_admin=False)
+    un_admin.short_description = "Make selected users not administrators"
+
     # The forms to add and change user instances
     form = UserChangeForm
     add_form = UserCreationForm
@@ -61,23 +68,24 @@ class MyUserAdmin(UserAdmin):
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
     list_display = ('username', 'email', 'firstname', 'lastname', 'year', 'is_admin')
-    list_filter = ('is_admin',)
+    list_filter = ()
+
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         ('Personal info', {'fields': ('firstname', 'lastname', 'year', 'email', 'current_location', 'current_job', 'major')}),
-        ('Permissions', {'fields': ('is_admin',)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'email', 'firstname', 'lastname', 'year', 'password1', 'password2')}
+            'fields': ('username', 'firstname', 'lastname', 'year', 'password1', 'password2')}
         ),
     )
     search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ()
+    actions = [make_admin, un_admin]
 
 # Now register the new UserAdmin...
 admin.site.register(MyUser, MyUserAdmin)
