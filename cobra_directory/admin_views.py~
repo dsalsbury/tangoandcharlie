@@ -21,14 +21,13 @@ def roster(request):
 roster = staff_member_required(roster)
 
 def profile(request, user_id):
-#    profile = .objects.get(user=user)
+    profile = MyUser.objects.get(id=user_id)
 
-#    context = { 'profile' : profile }
+    context = { 'profile' : profile }
 
     return render_to_response(
         "cobra_directory/profile.html",
-#        context,
-        {},
+        context,
         RequestContext(request, {}),
     )
 

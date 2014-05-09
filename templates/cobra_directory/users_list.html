@@ -14,7 +14,7 @@
   <!-- Default panel contents -->
   <div style="font-family:Trajan_Pro; font-size: 24px;" class="panel-heading">
     <center>Alumni Roster</center>
-    {% if request.user.is_superuser %}
+    {% if request.user.is_admin %}
     <div class="row">
       <div class="pull-right" style="margin-right: 10px;">
 	<a href="{% url 'admin:auth_user_add' %}">
@@ -29,6 +29,14 @@
   </div>
 
   <!-- Table -->
+  <form action="/search/" method="get">
+    <input type="text" name="q">
+    <input type="submit" value="Search">
+  </form>
+
+  {% if query %}
+  Queried by: {{ query }}
+  {% endif %}
 
   <table class="table">
     <thead><bold>

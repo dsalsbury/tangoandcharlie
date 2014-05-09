@@ -34,7 +34,9 @@
 	    <span class="icon-bar"></span>
 	    <span class="icon-bar"></span>
 	  </button>
-	  <a class="navbar-brand" href="{% url 'admin:index' %}">CSH Directory</a>
+	  <a class="navbar-brand" href="{% url 'admin:index' %}">
+	    <img src="{% static "cobra_directory/cobra_logo.png" %}" alt="Logo" height="25" width="10"/>
+	  </a>
 	</div>
 
         {% if user.is_active and user.is_staff %}
@@ -44,12 +46,14 @@
             {% block welcome-msg %}
 	    <li><a>Welcome {% firstof user.get_short_name user.get_username %}!</a></li>
 	    {% endblock %}
+	    {% if user.is_admin %}
 	    <li><a href="/admin/cobra_directory/myuser/">Manage Profiles</a></li>
+	    {% endif %}
 	    {% block buserlinks %}
 	    <li class="dropdown">
 	      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<b class="caret"></b></a>
 	      <ul class="dropdown-menu">
-		<li><a href="/admin/cobra_directory/userprofile/{{ user.id }}/">Edit My Info</a></li>
+		<li><a href="/admin/cobra_directory/myuser/{{ user.id }}/">Edit My Info</a></li>
 		{% if user.has_usable_password %}
 		<li><a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a></li>
 		{% endif %}
@@ -84,8 +88,6 @@
       <p class="text-muted">
 	Designed and coded by 
 	<a href="http://www.cs.dartmouth.edu/~salsbury">Diana Salsbury</a> 
-	and the 
-	<a href="http://www.dartmouth.edu/~classics">Classics Department</a> 
 	of 
 	<a href="http://www.dartmouth.edu">Dartmouth College</a>
       </p>
