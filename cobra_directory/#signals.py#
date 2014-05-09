@@ -1,0 +1,7 @@
+from django.core.signals import request_finished
+from django.dispatch import receiver
+from cobra_directory.models import MyUser
+
+@receiver(post_save, sender=MyUser)
+def my_handler(sender, **kwargs):
+    ...

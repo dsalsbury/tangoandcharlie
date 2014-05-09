@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 from cobra_directory.models import MyUser
 
@@ -47,6 +49,13 @@ class UserChangeForm(forms.ModelForm):
         model = MyUser
         fields = ('username', 'email', 'password', 'firstname', 'lastname', 'year', 'current_location', 'major', 'current_job', 'is_active', 'is_admin')
 
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super(UserChangeForm, self).save(commit=False)
+        if commit:
+            user.save()
+        return user
+
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
         # This is done here, rather than on the field, because the
@@ -54,13 +63,16 @@ class UserChangeForm(forms.ModelForm):
         return self.initial["password"]
 
 class MyUserAdmin(UserAdmin):
-
     def make_admin(self, request, queryset):
         queryset.update(is_admin=True)
     make_admin.short_description = "Make selected users administrators"
     def un_admin(self, request, queryset):
         queryset.update(is_admin=False)
     un_admin.short_description = "Make selected users not administrators"
+
+    def response_change(self, request, obj, post_url_continue=None):
+        """This makes the response after adding go to another apps changelist for some model"""
+        return HttpResponseRedirect(reverse("admin:index"))
 
     # The forms to add and change user instances
     form = UserChangeForm
@@ -88,6 +100,11 @@ class MyUserAdmin(UserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
     actions = [make_admin, un_admin]
+
+    @property
+    def is_staff(self):
+        "Is the user an administrator?"
+        return self.is_admin
 
 # Now register the new UserAdmin...
 admin.site.register(MyUser, MyUserAdmin)
