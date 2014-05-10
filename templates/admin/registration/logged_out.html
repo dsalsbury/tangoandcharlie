@@ -1,0 +1,12 @@
+{% load i18n %}
+
+<body style="background-color: #BC4946; font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif; 
+   font-weight: 300; padding-top: 25%;">
+
+<center>
+<img src="{% static "cobra_directory/cobra_logo.png" %}" alt="Logo" height="35" width="15" />
+<p>{% trans "Thanks for spending some quality time with the Web site today." %}</p>
+
+<p><a href="{% url 'admin:index' %}">{% trans 'Log in again' %}</a></p>
+</center>
+</body>
