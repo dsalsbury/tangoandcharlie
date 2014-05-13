@@ -12,12 +12,12 @@
 <div class="row" style="margin-left: 5%; margin-right: 5%;">
 
   <!-- Default panel contents -->
-  <div style="font-family:Trajan_Pro; font-size: 24px;" class="panel-heading">
-    <center>Alumni Roster</center>
-    {% if request.user.is_superuser %}
+  <div style="font-size: 24px;" class="panel-heading">
+    <center><font color="#BC4946">Alumni Roster</font></center>
+    {% if user.is_admin %}
     <div class="row">
       <div class="pull-right" style="margin-right: 10px;">
-	<a href="{% url 'admin:auth_user_add' %}">
+	<a href="{% url 'admin:cobra_directory_myuser_add' %}">
 	  <font style="font-size: 12px; padding-bottom: 10px;">
 	    <span class="glyphicon glyphicon-plus"></span>
 	    Add New Users
@@ -29,6 +29,14 @@
   </div>
 
   <!-- Table -->
+  <form action="/search/" method="get">
+    <input type="text" name="q">
+    <input type="submit" value="Search">
+  </form>
+
+  {% if query %}
+  Queried by: {{ query }}
+  {% endif %}
 
   <table class="table">
     <thead><bold>

@@ -29,13 +29,41 @@
   </div>
 
   <!-- Table -->
-  <form action="/search/" method="get">
-    <input type="text" name="q">
-    <input type="submit" value="Search">
+
+  <form class="form-inline" role="form" action="/search/" method="get">
+    <div class="form-group">
+      <input class="form-control" placeholder="Search on firstname, lastname, email" type="text" name="q" style="width: 300px;">
+      <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-search"></span></button>
+    </div>
+    <button type="button" class="btn btn-danger btn-sm pull-right" data-toggle="collapse" data-target="#demo">
+      Advanced Search
+    </button>
   </form>
 
+<div id="demo" class="collapse" style="margin-top: 10px;">
+<form class="form-inline" role="form" action="/search/" method="get">
+  <div class="form-group">
+    <label class="sr-only" for="Email">Email</label>
+    <input type="text" class="form-control" id="Email" placeholder="Enter email" name="email">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="Location">Location</label>
+    <input type="text" class="form-control" id="Location" placeholder="Enter location" name="location">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="Job">Job</label>
+    <input type="text" class="form-control" id="Job" placeholder="Enter job" name="job">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="Major">Major</label>
+    <input type="text" class="form-control" id="Major" placeholder="Enter Major" name="major">
+  </div>
+  <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-search"></span></button>
+</form>
+</div>
+
   {% if query %}
-  Queried by: {{ query }}
+  Searched by: {{ query }}
   {% endif %}
 
   <table class="table">

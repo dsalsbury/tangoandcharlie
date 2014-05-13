@@ -8,7 +8,7 @@ from cobra_directory.models import MyUser
 from django.db.models import Q
 
 def roster(request):
-    users_list = MyUser.objects.all()
+    users_list = MyUser.objects.all().order_by('year', 'lastname', 'firstname')
     context = {
         'users_list': users_list,
         }
@@ -37,9 +37,20 @@ profile = staff_member_required(profile)
 def search(request):
     if 'q' in request.GET:
         q = request.GET['q']
-        users = MyUser.objects.filter(Q(email__icontains=q) | Q(firstname__icontains=q) | Q(lastname__icontains=q))
+        users = MyUser.objects.filter(Q(email__icontains=q) | Q(firstname__icontains=q) | Q(lastname__icontains=q)).order_by('year', 'lastname', 'firstname')
         return render(request, 'cobra_directory/users_list.html',
             {'users_list': users, 'query': q,})
+    if 'email' in request.GET:
+        email    = request.GET['email']
+        job      = request.GET['job']
+        location = request.GET['location']
+        major    = request.GET['major']
+        query    = "Email: " + email + ", Job: " + job + ", Location: " + location + ", Major: " + major
+
+
+        users = MyUser.objects.filter(Q(email__icontains=email) & Q(current_job__icontains=job) & Q(current_location__icontains=location) & Q(major__icontains=major)).order_by('year', 'lastname', 'firstname') 
+        return render(request, 'cobra_directory/users_list.html',
+            {'users_list': users, 'query': query,})
     else:
         message = 'You submitted an empty form.'
     return HttpResponse(message)
