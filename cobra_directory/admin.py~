@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 from cobra_directory.models import MyUser
 
@@ -67,6 +69,10 @@ class MyUserAdmin(UserAdmin):
     def un_admin(self, request, queryset):
         queryset.update(is_admin=False)
     un_admin.short_description = "Make selected users not administrators"
+
+    def response_change(self, request, obj, post_url_continue=None):
+        """This makes the response after adding go to another apps changelist for some model"""
+        return HttpResponseRedirect(reverse("admin:index"))
 
     # The forms to add and change user instances
     form = UserChangeForm

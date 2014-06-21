@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib import admin
+
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
@@ -17,7 +18,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-        fields = ('username', 'firstname', 'lastname', 'year')
+        fields = ('username', 'password', 'firstname', 'lastname', 'year')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -41,13 +42,10 @@ class UserChangeForm(forms.ModelForm):
     the user, but replaces the password field with admin's
     password hash display field.
     """
-    password = ReadOnlyPasswordHashField(label= ("Password"), help_text= ("Raw passwords are not stored, so there is no way to see "
-                    "this user's password, but you can change the password "
-                    "using <a href=\"password/\">this form</a>."))
-
     class Meta:
         model = MyUser
-        fields = ('username', 'email', 'password', 'firstname', 'lastname', 'year', 'current_location', 'major', 'current_job', 'is_active', 'is_admin')
+        fields = ('username', 'email', 'firstname', 'lastname', 'year', 'current_location', 'major', 'current_job', 'is_active', 'is_admin')
+        exclude = ('password',)
 
     def save(self, commit=True):
         # Save the provided password in hashed format
@@ -55,12 +53,6 @@ class UserChangeForm(forms.ModelForm):
         if commit:
             user.save()
         return user
-
-    def clean_password(self):
-        # Regardless of what the user provides, return the initial value.
-        # This is done here, rather than on the field, because the
-        # field does not have access to the initial value
-        return self.initial["password"]
 
 class MyUserAdmin(UserAdmin):
     def make_admin(self, request, queryset):
@@ -85,7 +77,7 @@ class MyUserAdmin(UserAdmin):
     list_filter = ()
 
     fieldsets = (
-        (None, {'fields': ('username', 'password')}),
+        (None, {'fields': ('username',)}),
         ('Personal info', {'fields': ('firstname', 'lastname', 'year', 'email', 'current_location', 'current_job', 'major')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin

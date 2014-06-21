@@ -16,10 +16,60 @@
 <script type="text/javascript">window.__admin_utc_offset__ = "{% filter escapejs %}{% now "Z" %}{% endfilter %}";</script>
 {% block extrahead %}{% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+<style>
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto 0px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.navbar-inverse { background-color: #BC4946}
+.navbar-inverse .navbar-nav>.active>a:hover,.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus { background-color: #7D0000}
+.navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.open>a,.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover,.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus { background-color: #BC4946}
+.dropdown-menu { background-color: #FFFFFF}
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { background-color: #7d0000}
+.navbar-inverse { border-color: #D1D1D1}
+.navbar-inverse .navbar-brand { color: #FFFFFF}
+.navbar-inverse .navbar-brand:hover { color: #EBEBEB}
+.navbar-inverse .navbar-nav>li>a { color: #FFFFFF}
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus { color: #FFFFFF}
+.navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus { color: #FFFFFF}
+.navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus { color: #FFFFFF}
+.dropdown-menu>li>a { color: #7D0000}
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { color: #FFFFFF}
+.navbar-inverse .navbar-nav>.dropdown>a .caret { border-top-color: #FFFFFF}
+.navbar-inverse .navbar-nav>.dropdown>a:hover .caret { border-top-color: #FFFFFF}
+.navbar-inverse .navbar-nav>.dropdown>a .caret { border-bottom-color: #FFFFFF}
+.navbar-inverse .navbar-nav>.dropdown>a:hover .caret { border-bottom-color: #FFFFFF}
+
+a:link {color:#A60000;}      /* unvisited link */
+a:visited {color:#A60000;}  /* visited link */
+a:hover {color:#BC4946;}  /* mouse over link */
+a:active {color:#A60000;}  /* selected link */
+
+</style>
+
 </head>
 {% load i18n %}
 
-<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" >
 
 <!-- Container -->
 <div id="container">
@@ -35,7 +85,8 @@
 	    <span class="icon-bar"></span>
 	  </button>
 	  <a class="navbar-brand" href="{% url 'admin:index' %}">
-	    <img src="{% static "cobra_directory/cobra_logo.png" %}" alt="Logo" height="25" width="10"/>
+	    <img src="{% static "cobra_directory/cobra_logo.png" %}" alt="Logo" height="25" width="10" style="margin-right: 20px; margin-top: -3px;"/>
+	    Directory
 	  </a>
 	</div>
 
@@ -43,9 +94,6 @@
         <div id="main_navbar" class="collapse navbar-collapse">
 	<div id="user-tools">
 	  <ul class="nav navbar-nav navbar-right">
-            {% block welcome-msg %}
-	    <li><a>Welcome {% firstof user.get_short_name user.get_username %}!</a></li>
-	    {% endblock %}
 	    {% if user.is_admin %}
 	    <li><a href="/admin/cobra_directory/myuser/">Manage Profiles</a></li>
 	    {% endif %}
@@ -70,8 +118,9 @@
     <!-- END Header -->
     {% endif %}
 
+    <div id="wrap">
     <!-- Content -->
-    <div id="push">
+    <div class="container">
     <div id="content" class="{% block coltype %}colM{% endblock %}">
         {% block pretitle %}{% endblock %}
         {% block content %}
@@ -82,15 +131,18 @@
     </div>
     </div>
     <!-- END Content -->
+    </div>
 
     {% block footer %}
-    <div id="footer" class="navbar-fixed-bottom nav_site_font">
-      <p class="text-muted">
-	Designed and coded by 
-	<a href="http://www.cs.dartmouth.edu/~salsbury">Diana Salsbury</a> 
-	of 
-	<a href="http://www.dartmouth.edu">Dartmouth College</a>
-      </p>
+    <div id="footer" class="navbar navbar-default nav_site_font" style="height: 20px; margin-bottom: 0;">
+      <center>
+	<p class="text-muted" style="margin-top: 10px;">
+	  Designed and coded by 
+	  <a href="http://www.cs.dartmouth.edu/~salsbury">Diana Salsbury</a> 
+	  of 
+	  <a href="http://www.dartmouth.edu">Dartmouth College</a>
+	</p>
+      </center>
     </div>
     {% endblock %}
 </div>

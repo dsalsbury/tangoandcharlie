@@ -13,7 +13,7 @@
 
   <!-- Default panel contents -->
   <div style="font-size: 24px;" class="panel-heading">
-    <center><font color="#BC4946">Alumni Roster</font></center>
+    <center><font color="#BC4946">Alumni Rossster</font></center>
     {% if user.is_admin %}
     <div class="row">
       <div class="pull-right" style="margin-right: 10px;">
@@ -30,37 +30,40 @@
 
   <!-- Table -->
 
-  <form class="form-inline" role="form" action="/search/" method="get">
-    <div class="form-group">
-      <input class="form-control" placeholder="Search on firstname, lastname, email" type="text" name="q" style="width: 300px;">
-      <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-search"></span></button>
-    </div>
-    <button type="button" class="btn btn-danger btn-sm pull-right" data-toggle="collapse" data-target="#demo">
-      Advanced Search
-    </button>
-  </form>
+  <button type="button" class="btn btn-danger btn-xs" data-toggle="collapse" data-target=".search-collapse">
+    Advanced Sssearch::
+  </button>  
+  <br />
+  <div class="collapse in search-collapse" style="margin-top: 10px;">
+    <form class="form-inline" role="form" action="/search/" method="get">
+      <div class="form-group">
+	<input class="form-control" placeholder="Search on firstname, lastname, email" type="text" name="q" style="width: 300px;">
+	<button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-search"></span></button>
+      </div>
+    </form>
+  </div>
 
-<div id="demo" class="collapse" style="margin-top: 10px;">
-<form class="form-inline" role="form" action="/search/" method="get">
-  <div class="form-group">
-    <label class="sr-only" for="Email">Email</label>
-    <input type="text" class="form-control" id="Email" placeholder="Enter email" name="email">
+  <div id="demo" class="collapse search-collapse" style="margin-top: 10px;">
+    <form class="form-inline" role="form" action="/search/" method="get">
+      <div class="form-group">
+	<label class="sr-only" for="Email">Email</label>
+	<input type="text" class="form-control" id="Email" placeholder="Email" name="email">
+      </div>
+      <div class="form-group">
+	<label class="sr-only" for="Location">Location</label>
+	<input type="text" class="form-control" id="Location" placeholder="Location" name="location">
+      </div>
+      <div class="form-group">
+	<label class="sr-only" for="Job">Job</label>
+	<input type="text" class="form-control" id="Job" placeholder="Job" name="job">
+      </div>
+      <div class="form-group">
+	<label class="sr-only" for="Major">Major</label>
+	<input type="text" class="form-control" id="Major" placeholder="Major" name="major">
+      </div>
+      <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
   </div>
-  <div class="form-group">
-    <label class="sr-only" for="Location">Location</label>
-    <input type="text" class="form-control" id="Location" placeholder="Enter location" name="location">
-  </div>
-  <div class="form-group">
-    <label class="sr-only" for="Job">Job</label>
-    <input type="text" class="form-control" id="Job" placeholder="Enter job" name="job">
-  </div>
-  <div class="form-group">
-    <label class="sr-only" for="Major">Major</label>
-    <input type="text" class="form-control" id="Major" placeholder="Enter Major" name="major">
-  </div>
-  <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-search"></span></button>
-</form>
-</div>
 
   {% if query %}
   Searched by: {{ query }}

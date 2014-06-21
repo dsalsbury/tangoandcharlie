@@ -24,6 +24,11 @@ body {
 
 }
 
+/* hide the breadcrumbs.  dis be hacky but whatevs. */
+.breadcrumbs {
+  display: none;
+}
+
 /* Wrapper for page content to push down footer */
 #wrap {
   min-height: 100%;
@@ -86,7 +91,7 @@ a:active {color:#A60000;}  /* selected link */
 	  </button>
 	  <a class="navbar-brand" href="{% url 'admin:index' %}">
 	    <img src="{% static "cobra_directory/cobra_logo.png" %}" alt="Logo" height="25" width="10" style="margin-right: 20px; margin-top: -3px;"/>
-	    Directory
+	    ::Directory
 	  </a>
 	</div>
 
@@ -99,7 +104,7 @@ a:active {color:#A60000;}  /* selected link */
 	    {% endif %}
 	    {% block buserlinks %}
 	    <li class="dropdown">
-	      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<b class="caret"></b></a>
+	      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi {% firstof user.get_firstname user.get_username %}!<b class="caret"></b></a>
 	      <ul class="dropdown-menu">
 		<li><a href="/admin/cobra_directory/myuser/{{ user.id }}/">Edit My Info</a></li>
 		{% if user.has_usable_password %}
@@ -138,7 +143,7 @@ a:active {color:#A60000;}  /* selected link */
       <center>
 	<p class="text-muted" style="margin-top: 10px;">
 	  Designed and coded by 
-	  <a href="http://www.cs.dartmouth.edu/~salsbury">Diana Salsbury</a> 
+	  <a href="https://github.com/dsalsbury">Diana Salsbury</a> 
 	  of 
 	  <a href="http://www.dartmouth.edu">Dartmouth College</a>
 	</p>
