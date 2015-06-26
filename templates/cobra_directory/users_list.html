@@ -30,10 +30,14 @@
 
   <!-- Table -->
 
-  <button type="button" class="btn btn-danger btn-xs" data-toggle="collapse" data-target=".search-collapse">
-    Advanced Sssearch::
-  </button>  
-  <br />
+  <div class="row">
+    <button type="button" class="col-sm-3 btn btn-danger btn-xs"  data-toggle="collapse" data-target=".search-collapse" style="width: 150px; margin-left: 15px; height: 30px;">
+      Advanced Sssearch::
+    </button>  
+    <button type="button" class="pull-right col-sm-3 btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal" style="width: 150px; height: 30px; margin-left: 20px;">
+      Generate email list
+    </button>
+  </div>
   <div class="collapse in search-collapse" style="margin-top: 10px;">
     <form class="form-inline" role="form" action="/search/" method="get">
       <div class="form-group">
@@ -90,4 +94,23 @@
 
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Copy and paste this email list into the "Send" field of your preferred email client, and messSsage away!</h4>
+      </div>
+      <div class="modal-body">
+	{% for user in users_list %}
+	{{ user.email }} ;
+	{% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
